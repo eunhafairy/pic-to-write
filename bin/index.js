@@ -18,9 +18,8 @@ const main = async () => {
             results.forEach( async (res) =>{
                 await writeFile(res.NAME)
             })
-            console.log("DONE!")
+            console.log("File/s saved in the current working directory!")
           });
-    // console.log("File/s saved!")
 }
 
 

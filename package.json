@@ -1,0 +1,27 @@
+{
+  "name": "pic-to-write",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "bin/index.js",
+  "scripts": {
+    "start": "node bin/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "pic-to-write": "./bin/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "file-saver": "^2.0.5",
+    "gm": "^1.25.0",
+    "jimp": "^0.22.10",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {
+    "csv-parser": "^3.0.0",
+    "minimist-lite": "^2.2.1"
+  }
+}

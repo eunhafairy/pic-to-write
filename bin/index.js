@@ -21,7 +21,7 @@ const main = async () => {
             .on("data", (data) => results.push(data))
             .on("end", () => {
                 results.forEach(async (res, index) => {
-                    const result = await writeFile(res, args?.identifier);
+                    const result = await writeFile(res, args?.identifier, args?.templateUrl);
                     console.log(`File ${result} saved in ${homedir()}`);
                 });
             });

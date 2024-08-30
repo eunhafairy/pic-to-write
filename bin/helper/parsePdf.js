@@ -2,14 +2,14 @@ import { writeFileSync } from "node:fs";
 import { PDFDocument } from "pdf-lib";
 import crypto from "crypto";
 import { homedir } from "node:os";
-export const writeFile = async (data, identifier) => {
+export const writeFile = async (data, identifier, templateUrl) => {
 
     try{
 
-        let url = process.env.URL_TO_TEMPLATE_PDF;
+        let url = templateUrl || process.env.URL_TO_TEMPLATE_PDF;
         if (!url){
             throw new Error(
-                "Please set an environemnt variable called URL_TO_TEMPLATE_PDF and set the value as the url of your template pdf file"
+                "Please set an environemnt variable called URL_TO_TEMPLATE_PDF and set the value as the url of your template pdf file, or add a params using --templateUrl"
             );
         }
         const formPdfBytes = await fetch(url).then((res) => res.arrayBuffer());

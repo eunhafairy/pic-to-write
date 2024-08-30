@@ -16,8 +16,6 @@
   "license": "ISC",
   "dependencies": {
     "file-saver": "^2.0.5",
-    "gm": "^1.25.0",
-    "jimp": "^0.22.10",
     "pdf-lib": "^1.17.1"
   },
   "devDependencies": {

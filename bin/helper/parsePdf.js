@@ -1,19 +1,35 @@
-import {  writeFileSync } from 'node:fs';
-import { PDFDocument } from 'pdf-lib';
+import { writeFileSync } from "node:fs";
+import { PDFDocument } from "pdf-lib";
+import crypto from "crypto";
+import { homedir } from "node:os";
+export const writeFile = async (data, identifier) => {
 
-
-export const writeFile = async (name) => {
-    
     try{
-        const formPdfBytes = await fetch(process.env.PDF_URL).then(res => res.arrayBuffer())
-        const pdfDoc = await PDFDocument.load(formPdfBytes)
-        const form = pdfDoc.getForm()
-        const studentNameField = form.getTextField('studentName')
-        studentNameField.setText(name)
-        const pdfBytes = await pdfDoc.save()
-        writeFileSync(process.cwd()+'/' + name + " - output.pdf", pdfBytes)
+
+        let url = process.env.URL_TO_TEMPLATE_PDF;
+        if (!url){
+            throw new Error(
+                "Please set an environemnt variable called URL_TO_TEMPLATE_PDF and set the value as the url of your template pdf file"
+            );
+        }
+        const formPdfBytes = await fetch(url).then((res) => res.arrayBuffer());
+        const pdfDoc = await PDFDocument.load(formPdfBytes);
+        const form = pdfDoc.getForm();
+    
+        Object.keys(data).forEach((key) => {
+            const textField = form.getTextField(key);
+            textField.setText(data[key]);
+        });
+        const pdfBytes = await pdfDoc.save();
+        const fileName = `${
+            identifier && data[identifier] ? data[identifier] : crypto.randomUUID()
+        }_output.pdf`;
+        writeFileSync(homedir() + "/" + fileName, pdfBytes);
+        return fileName;
     }
     catch(ex){
-        console.error("Error: ",ex)
+        console.error("Something went wrong!", ex)
     }
-}
+    
+    
+};
